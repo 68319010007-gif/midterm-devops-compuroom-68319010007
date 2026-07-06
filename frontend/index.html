@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CompuRoom — ระบบบันทึกข้อมูลเครื่องคอมพิวเตอร์ประจำห้อง</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <div>
+      <h1>CompuRoom</h1>
+      <p>ระบบบันทึกข้อมูลเครื่องคอมพิวเตอร์ประจำห้องปฏิบัติการ</p>
+    </div>
+    <div class="student-info">
+      <strong>นายชัยวัฒน์ ฮาดนิล</strong><br>
+      รหัสนักศึกษา 68319010007 · DevOps 30901-2008
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2 id="form-title">เพิ่มเครื่องคอมพิวเตอร์</h2>
+      <form id="computer-form">
+        <input type="hidden" id="edit-id" value="">
+        <div class="form-grid">
+          <label>
+            รหัสครุภัณฑ์
+            <input type="text" id="asset_code" required placeholder="PC-LAB-001">
+          </label>
+          <label>
+            ยี่ห้อและรุ่น
+            <input type="text" id="brand_model" required placeholder="Dell OptiPlex 7090">
+          </label>
+          <label>
+            CPU
+            <input type="text" id="cpu" required placeholder="Intel Core i5-11500">
+          </label>
+          <label>
+            RAM (GB)
+            <input type="number" id="ram_gb" required min="1" placeholder="8">
+          </label>
+          <label>
+            ห้องที่ติดตั้ง
+            <input type="text" id="room" required placeholder="ห้อง 101">
+          </label>
+          <label>
+            สถานะ
+            <select id="status" required>
+              <option value="active">ใช้งาน</option>
+              <option value="repair">ส่งซ่อม</option>
+              <option value="disposed">จำหน่าย</option>
+            </select>
+          </label>
+        </div>
+        <div class="form-actions">
+          <button type="submit" id="submit-btn">บันทึก</button>
+          <button type="button" id="cancel-btn" class="secondary" hidden>ยกเลิก</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="card">
+      <div class="section-header">
+        <h2>รายการเครื่องคอมพิวเตอร์</h2>
+        <button type="button" id="refresh-btn" class="secondary">รีเฟรช</button>
+      </div>
+      <p id="message" class="message" hidden></p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>รหัสครุภัณฑ์</th>
+              <th>ยี่ห้อ/รุ่น</th>
+              <th>CPU</th>
+              <th>RAM</th>
+              <th>ห้อง</th>
+              <th>สถานะ</th>
+              <th>จัดการ</th>
+            </tr>
+          </thead>
+          <tbody id="computer-list">
+            <tr><td colspan="7" class="empty">กำลังโหลด...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    CompuRoom · midterm-devops-compuroom-68319010007 · 68319010007
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
