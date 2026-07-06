@@ -1,0 +1,42 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: compuroom
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: secret
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U dev -d compuroom']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    image: chaiwat007/compuroom-api:latest
+    restart: unless-stopped
+    ports:
+      - '3001:3001'
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: compuroom
+      DB_USER: dev
+      DB_PASSWORD: secret
+      PORT: 3001
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    image: chaiwat007/compuroom-web:latest
+    restart: unless-stopped
+    ports:
+      - '8080:80'
+    depends_on:
+      - backend
+
+volumes:
+  pg_data:
